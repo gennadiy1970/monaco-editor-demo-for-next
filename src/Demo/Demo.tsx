@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
 import MonacoEditor from '../MonacoEditor';
-import { Container, Button } from './Demo.styles';
+import { CodeWrapper, Container, Button } from './Demo.styles';
 import { code } from '../code';
 import { options } from '../options';
-import {  ITheme,  IMode } from '../types';
+import { ITheme, IMode } from '../types';
+import { editor } from 'monaco-editor';
 
-
-const theme:ITheme = {
+const theme: ITheme = {
   dark: 'vs-dark',
   light: 'light',
 };
 
-const mode:IMode = {
+const mode: IMode = {
   js: 'javascript',
   ts: 'typescript',
   html: 'html',
@@ -24,7 +24,9 @@ const mode:IMode = {
 function Demo() {
   const [stateTheme, setStateTheme] = useState(theme.dark);
   const [stateMode, setStateMode] = useState(mode.js);
-
+  const [codeValue, setCodeValue] = useState(code.js);
+  const onChangeCode = (value = '', event: editor.IModelContentChangedEvent) =>
+    setCodeValue(value);
   return (
     <>
       <Container>
@@ -50,8 +52,9 @@ function Demo() {
         <MonacoEditor
           theme={stateTheme}
           mode={mode.js}
-          code={code.js}
+          code={codeValue}
           options={options}
+          onChange={onChangeCode}
         />
       )}
       {stateMode === mode.ts && (
@@ -60,7 +63,7 @@ function Demo() {
           mode={mode.ts}
           code={code.ts}
           options={options}
-
+          onChange={onChangeCode}
         />
       )}
       {stateMode === mode.html && (
@@ -69,6 +72,7 @@ function Demo() {
           mode={mode.html}
           code={code.html}
           options={options}
+          onChange={onChangeCode}
         />
       )}
       {stateMode === mode.css && (
@@ -77,6 +81,7 @@ function Demo() {
           mode={mode.css}
           code={code.css}
           options={options}
+          onChange={onChangeCode}
         />
       )}
       {stateMode === mode.less && (
@@ -86,6 +91,7 @@ function Demo() {
           code={code.less}
           options={{ ...options, readOnly: true }}
           className="disable"
+          onChange={onChangeCode}
         />
       )}
       {stateMode === mode.java && (
@@ -94,6 +100,7 @@ function Demo() {
           mode={mode.java}
           code={code.java}
           options={options}
+          onChange={onChangeCode}
         />
       )}
       {stateMode === mode.python && (
@@ -102,8 +109,13 @@ function Demo() {
           mode={mode.python}
           code={code.python}
           options={options}
+          onChange={onChangeCode}
         />
       )}
+      <Container>
+        <Button onClick={() => setStateMode(mode.js)}>Get code</Button>
+      </Container>
+      <CodeWrapper>{codeValue}</CodeWrapper>
     </>
   );
 }

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import Editor, { useMonaco } from '@monaco-editor/react';
+
 import { editor } from 'monaco-editor';
 import { Container } from './MonacoEditor.styles';
 import { IMonacoEditorProps } from '../types';
+
 
 const MonacoEditor: React.FC<IMonacoEditorProps> = ({
   theme,
@@ -10,6 +12,7 @@ const MonacoEditor: React.FC<IMonacoEditorProps> = ({
   code,
   options,
   className = '',
+  onChange,
 }) => {
   const monaco = useMonaco();
   type TMonaco = typeof monaco;
@@ -24,11 +27,11 @@ const MonacoEditor: React.FC<IMonacoEditorProps> = ({
       console.log('here is the monaco instance:', monaco);
     }
   }, [monaco]);
-  function handleEditorWillMount(monaco: TMonaco) {
-    // here is the monaco instance
-    // do something before editor is mounted
-    monaco?.languages.typescript.javascriptDefaults.setEagerModelSync(true);
-  }
+  // function handleEditorWillMount(monaco: TMonaco) {
+  //   // here is the monaco instance
+  //   // do something before editor is mounted
+  //   // monaco?.languages.typescript.javascriptDefaults.setEagerModelSync(true);
+  // }
 
   function handleEditorDidMount(editor: TEditor, monaco: TMonaco) {
     // here is another way to get monaco instance
@@ -54,6 +57,10 @@ const MonacoEditor: React.FC<IMonacoEditorProps> = ({
             range: new monaco.Range(6, 20, 6, 25),
             options: { inlineClassName: 'myInlineDecoration' },
           },
+          // {
+          //   range: new monaco.Range(3, 1, 5, 80),
+          //   options: { inlineClassName: 'editabaleCodeBackground' },
+          // },
         ]
       );
     }
@@ -67,8 +74,9 @@ const MonacoEditor: React.FC<IMonacoEditorProps> = ({
         defaultLanguage={mode}
         theme={theme}
         className={className}
-        beforeMount={handleEditorWillMount}
+        // beforeMount={handleEditorWillMount}
         onMount={handleEditorDidMount}
+        onChange={onChange}
       />
     </Container>
   );

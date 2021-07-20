@@ -42,3 +42,7 @@ body {
 .disable .monaco-editor-background {
   background-color: #161d2a !important;
 }
+
+.editabaleCodeBackground {
+  background-color: #030e00 !important;
+}

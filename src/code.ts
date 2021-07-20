@@ -16,13 +16,10 @@ const number = 12345.678;
 `,
   ts: `type TPosition = 'junior' | 'middle' | 'senior';
 // write your code below
-
-
-
-// write your code above
 const getPosition = (position: TPosition) => {
-    returm position.toUpperCase();
+  returm position.toUpperCase();
 }
+// write your code above
 
 console.log(getPosition('junior'));
 // JUNIOR

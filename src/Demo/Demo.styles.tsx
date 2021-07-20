@@ -15,3 +15,12 @@ export const Button = styled.button`
   font-size: 20px;
   margin: 0 1rem;
 `;
+
+
+export const CodeWrapper = styled.pre`
+  padding: .25rem 1.75rem;
+  background-color: #fff;
+  color: #000;
+  font-size: 20px;
+  margin: 0 1rem;
+`;
